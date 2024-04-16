@@ -11,16 +11,18 @@ import {
 } from "react-icons/bs";
 import RestaurantCategory from "./RestaurantCategory";
 import UserContext from "../../../namaste-react/src/utils/UserContext";
+import FormattedPriceCurrency from "../utils/formattedPrice";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
-  const resInfo = useRestaurantMenu(resId);
-  // const [showIndex, setShowIndex] = useState(null);
-  // const [showId, setShowId] = useState(1)
+  const {resInfo,loading } = useRestaurantMenu(resId);
+  const [showIndex, setShowIndex] = useState(null);
 
-  // const {loggedInUser} = useContext(UserContext)
+  const {loggedInUser} = useContext(UserContext)
 
-  if (resInfo === null) return <Shimmer />;
+  if (loading) return <Shimmer />;
+  const restaurantInfo = resInfo?.cards[2]?.card?.card?.info;
+  if (!restaurantInfo) return <h1>No Data Available</h1>;
 
   const {
     name,
@@ -28,35 +30,28 @@ const RestaurantMenu = () => {
     areaName,
     sla,
     avgRatingString,
-    totalRatingsString,
-    costForTwoMessage,
+    totalRatingsString,                            
+    costForTwo,
     isOpen,
-  } = resInfo?.cards[0]?.card?.card?.info;
-  console.log(name, isOpen);
-  const { itemCards } =
-    resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
-  // console.log(resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards);
+  } = restaurantInfo
+  // console.log(restaurantInfo, "DEBUG API DUE undifined ")
 
   const discountInfoFiltered =
-    resInfo?.cards[0]?.card?.card?.info?.aggregatedDiscountInfoV2?.descriptionList.filter(
-      (d) => d.operationType === "RESTAURANT"
-    );
-  // console.log(discountInfoFiltered);
+    resInfo?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers;
 
-  const filteredItemCategories =
-    resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
-      (i) =>
-        i.card?.card?.["@type"] ===
+  const itemsCategoryFiltered =
+    resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
+      (f) =>
+        f.card?.card?.["@type"] ===
         "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
     );
-  console.log(filteredItemCategories);
-  // console.log(filteredItemCategories[0]?.card?.card?.itemCards);
 
   return (
     <section className="w-full grid justify-center px-2 items-baseline">
-      <div className="w-[50vw]">
+      <article className="w-[50vw]">
         <div className="flex justify-between  pt-[3rem] pb-[1rem] border-b-2 border-b-gray-400 border-dotted mb-2">
           <section>
+            <h4>{loggedInUser}</h4>
             <h1 className="text-[1.2rem] text-gray-700 font-semibold">
               {name}
             </h1>
@@ -67,6 +62,7 @@ const RestaurantMenu = () => {
               </li>
             </ul>
           </section>
+
           <section className="py-[1rem] px-2 text-center block rounded-md w-[1/3] border">
             <p className="text-sm text-orange-500 font-bold text-center inline-flex mx-[auto] justify-items-center">
               <BsFillStarFill className="mt-[.2rem] mr-[.3rem]" />
@@ -78,7 +74,9 @@ const RestaurantMenu = () => {
               {totalRatingsString}
             </p>
           </section>
+         
         </div>
+
         <section className="flex items-center gap-2 text-sm font-bold">
           {isOpen ? (
             <p className="flex items-center text-gray-500">
@@ -89,62 +87,47 @@ const RestaurantMenu = () => {
             <p className="flex items-center text-red-400">
               <BsFillRecordCircleFill className="mr-1 text-red-400" />
               Closed
-              {/* <BsFillDoorClosedFill className="mr-1 text-red-600" />Closed */}
             </p>
           )}
           <p className="flex items-center ml-4  text-gray-600 ">
-            <BsCoin className="mr-1" /> {costForTwoMessage}
+            <BsCoin className="mr-1" />{" "}
+            {FormattedPriceCurrency(costForTwo / 100)}
           </p>
           <p></p>
         </section>
-        {isOpen ? (
-          <p className="tracking-widest text-[15px] text-gray-700 py-[.8rem] px-2 rounded-md mt-2 font-medium bg-green-50 border border-green-500">
-            We are open! Please add your favorite menu🙂
-          </p>
-        ) : (
-          <p className="text-gray-700 text-[15px] py-[.8rem] px-2 rounded-md mt font-medium bg-red-50 border border-red-500">
-            It's closed at this time. Will be right back😉
-          </p>
-        )}
-
-        <section className="flex flex-wrap gap-4 my-[1rem] ">
-          {discountInfoFiltered.map((d) => (
+        <section className="flex flex-wrap gap-2 my-[1rem] border-b-8 border-green-200 pb-[2rem]">
+          {discountInfoFiltered.map((d, index) => (
             <div
-              key={d.meta}
+              key={index}
               className=" w-[15rem] text-center border border-gray-200 py-1 px-2 rounded-md cursor-pointer uppercase"
             >
               <p className="text-gray-600 text-[13px] font-black">
-                {d.discountType}{" "}
+                {d?.info?.header}{" "}
               </p>
-              <p className=" text-gray-400 text-[11px] font-bold">{d.meta}</p>
+              <p className=" text-gray-400 text-[11px] font-bold">
+                {d?.info?.description}
+              </p>
+              <p className=" text-gray-400 text-[11px] font-bold">
+                {d?.info?.couponCode}
+              </p>
             </div>
           ))}
         </section>
 
         <section>
-          {filteredItemCategories.map((item, index) => (
+          {itemsCategoryFiltered.map((item, index) => (
             <RestaurantCategory
               key={item?.card?.card?.title}
               item={item?.card?.card}
-              // showItems={showIndex === index ? true : false}
-              // setShowIndex={() => setShowIndex(index)}
+              showItems={showIndex === index ? true : false}
+              setShowIndex={() => setShowIndex(index)}
             />
           ))}
         </section>
-      </div>
+      </article>
     </section>
   );
 };
 
 export default RestaurantMenu;
 
-// this  codes was replace custom hooks name useRestauranMenu
-// useEffect(() => {
-//   fetchMenuRestro();
-// }, []);
-
-// const fetchMenuRestro = async () => {
-//   const data = await fetch(RESTOMENU_API + resId);
-//   const json = await data.json();
-//   setResInfo(json.data);
-// };

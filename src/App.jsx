@@ -9,8 +9,11 @@ import RestaurantMenu from "./components/RestaurantMenu";
 // import Grocery from "./components/Grocery";
 import { lazy, Suspense, useEffect, useState } from "react";
 import UserContext from "../../namaste-react/src/utils/UserContext";
+import { Provider } from "react-redux";
+import foodStore from "./redux/foodStore";
+import Cart from "./components/Cart";
 
-const Grocery = lazy(() => import("./components/Grocery"));
+const Contact = lazy(() => import("./components/Contact"));
 const About = lazy(() => import("./pages/About"));
 
 function App() {
@@ -18,24 +21,24 @@ function App() {
 
   useEffect(function () {
     const data = {
-      name: "Stephen J.",
+      name: "Stephen Jaramillo.",
     };
     setUserName(data.name);
   }, []);
 
   // for demo how to useContext
-  {
-    /* <UserContext.Provider value={{loggedInUser: userName}}>
-</UserContext.Provider> */
-  }
+
   return (
-    <section>
-      <NavBarHeader />
-      <Outlet />
-    </section>
+    <Provider store={foodStore}>
+      <UserContext.Provider value={{ loggedInUser: userName }}>
+        <section>
+          <NavBarHeader />
+          <Outlet />
+        </section>
+      </UserContext.Provider>
+    </Provider>
   );
 }
-
 
 export const appRouter = createBrowserRouter([
   {
@@ -51,10 +54,10 @@ export const appRouter = createBrowserRouter([
         element: <Food />,
       },
       {
-        path: "/grocery",
+        path: "/contact-us",
         element: (
           <Suspense fallback={<h1>Loading.....</h1>}>
-            <Grocery />
+            <Contact />
           </Suspense>
         ),
       },
@@ -74,6 +77,10 @@ export const appRouter = createBrowserRouter([
         path: "/restaurants/:resId",
         element: <RestaurantMenu />,
       },
+      {
+        path: "/cart",
+        element: <Cart/>
+      }
     ],
     errorElement: <Error />,
   },

@@ -12,6 +12,7 @@ const RestroMain = () => {
   const [data, setData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [loading, setLoading] = useState(true)
 
   const RestoCardsPromoted = withPromotedRestoCards(RestoCards);
 
@@ -26,9 +27,10 @@ const RestroMain = () => {
     );
     const json = await data.json();
     const newData =
-      json.data.cards[1].card.card.gridElements.infoWithStyle?.restaurants;
+      json.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
     setData(newData);
     setOriginalData(newData);
+    setLoading(false)
     console.log(newData);
     console.log(json.data);
   };
@@ -36,7 +38,7 @@ const RestroMain = () => {
   const checkOnline = useOnlineStatus();
   if (!checkOnline) return NetLost();
 
-  return data.length === 0 ? (
+  return loading ? (
     <Shimmer />
   ) : (
     <section className="w-full grid">
@@ -47,6 +49,7 @@ const RestroMain = () => {
             type="text"
             placeholder="search...."
             value={searchText}
+            data-testid="searchInput"
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
@@ -54,7 +57,8 @@ const RestroMain = () => {
           <button
             className="text-[.9rem] py-[.5rem] px-[1rem] bg-gray-100 rounded-br-md rounded-tr-md"
             onClick={() => {
-              const filteredSearchText = data.filter((x) =>
+              console.log(data?.info, "test")
+              const filteredSearchText = data && data.filter((x) =>
                 x?.info?.name?.toLowerCase().includes(searchText.toLowerCase())
               );
               setOriginalData(filteredSearchText);
@@ -67,20 +71,20 @@ const RestroMain = () => {
         <button
           className="text-[.8rem] ml-[1rem] h-auto px-[1rem] ring-1 ring-gray-500 rounded-lg text-gray-500"
           onClick={() => {
-            const newRating = data.filter(
+            const newRating = data && data.filter(
               (value) => value?.info?.avgRating >= 4.3
             );
             setOriginalData(newRating);
           }}
         >
-          Top Rated Restuarant
+          Top Rated Restaurants
         </button>
       </div>
       <div className="w-auto flex flex-wrap">
-        {originalData.map((restoDB) => (
-          <Link key={restoDB.info.id} to={`restaurants/${restoDB.info.id}`}>
+        {originalData && originalData.map((restoDB) => (
+          <Link  key={restoDB.info.id} to={`restaurants/${restoDB.info.id}`}>
             {restoDB.info.isOpen ? (
-              <RestoCardsPromoted item={restoDB.info} />
+              <RestoCardsPromoted  item={restoDB.info} />
             ) : (
               <RestoCards item={restoDB.info} />
             )}

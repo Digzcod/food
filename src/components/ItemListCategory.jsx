@@ -1,13 +1,19 @@
 import { imageLinkAddress } from "../data/constants";
+import PropTypes from 'prop-types';
 import FormattedPriceCurrency from "../utils/formattedPrice";
 import { BsCartPlus } from "react-icons/bs";
 import { AiOutlineShop } from "react-icons/ai";
+import { useDispatch } from "react-redux"
+import { addItem } from "../redux/features/createSlice";
 
 const ItemListCategory = ({ data }) => {
   console.log(data);
+
+  const dispatch = useDispatch()
+
   return (
     <>
-      {data.map((item) => (
+      {data && data.map((item) => (
         <div
           key={item.card.info.id}
           className="mt-5 mb-3 py-3 flex justify-between px-2 border-b-2 content-center bg-gray-50"
@@ -32,10 +38,13 @@ const ItemListCategory = ({ data }) => {
               <img
                 className="w-full object-cover"
                 src={imageLinkAddress + item.card.info.imageId}
-                alt={item.card.info.name}
+                alt={item?.card?.info?.name}
               />
             </div>
-            <button className=" font-[600] text-[.8rem] text-green-500 border flex items-center shadow-2xl py-1 px-[1.5rem] bg-slate-100 rounded-md relative right-4 top-[-1rem] left-10 tracking-wide uppercase">
+            <button 
+            className=" font-[600] text-[.8rem] text-green-500 border flex items-center shadow-2xl py-1 px-[1.5rem] bg-slate-100 rounded-md relative right-4 top-[-1rem] left-10 tracking-wide uppercase"
+            onClick={() => dispatch(addItem(item))}
+            >
               add <BsCartPlus className="ml-2" />
             </button>
             {/* <div className="relative right-4 top-[-1rem] left-5">
@@ -48,6 +57,10 @@ const ItemListCategory = ({ data }) => {
       ))}
     </>
   );
+};
+
+ItemListCategory.propTypes = {
+  data: PropTypes.array.isRequired
 };
 
 export default ItemListCategory;
