@@ -2,7 +2,8 @@
   "name": "food-js",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "description": "This is food ordering app by Stephen",
+ "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

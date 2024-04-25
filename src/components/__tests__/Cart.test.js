@@ -1,54 +1,90 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
-import MOCK_DATA_NAME from "../mocks/mockResListData.json";
 import RestaurantMenu from "../RestaurantMenu";
 import { Provider } from "react-redux";
 import foodStore from "../../redux/foodStore";
-import "@testing-library/jest-dom";
 import RestaurantCategory from "../RestaurantCategory";
 import ItemListCategory from "../ItemListCategory";
+import { BrowserRouter } from "react-router-dom";
+import MOCK_LIST_ITEM from "../mocks/listItems.json";
+import "@testing-library/jest-dom";
+import NavBarHeader from "../NavBarHeader";
 
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    json: () => Promise.resolve(MOCK_DATA_NAME),
-  })
-);
 
+
+global.fetch = jest.fn(() => {
+  return Promise.resolve({
+    json: () => {
+      return Promise.resolve(MOCK_LIST_ITEM);
+    },
+  });
+});
+
+const mockItem = {
+  title: "Recommended",
+  itemCards: [
+    { id: 1, name: "Item 1" },
+    { id: 2, name: "Item 2" },
+  ]
+}
+
+
+
+
+// Mock data for testing
+// const mockData = [
+//   {
+//     card: {
+//       info: {
+//         id: 1,
+//         name: 'Pizza',
+//         price: 1000,
+//         description: 'Delicious pizza',
+//         imageId: 'pizza_image',
+//       },
+//     },
+//   },
+//   {
+//     card: {
+//       info: {
+//         id: 2,
+//         name: 'Burger',
+//         price: 800,
+//         description: 'Tasty burger',
+//         imageId: 'burger_image',
+//       },
+//     },
+//   },
+// ];
 
 it("should Load Restaurant Menu Component", async () => {
+
+ 
   await act(async () =>
     render(
-      <Provider store={foodStore}>
-        <RestaurantMenu />
-        <RestaurantCategory />
-        <ItemListCategory />
-      </Provider>
+      <>
+      <BrowserRouter>
+       <Provider store={foodStore}>
+        <RestaurantCategory 
+        item={mockItem}
+        setShowIndex={jest.fn()}
+        /> 
+        <ItemListCategory data={MOCK_LIST_ITEM} />
+        <NavBarHeader/>
+       </Provider>
+      </BrowserRouter>
+      </>
     )
   );
 
-  const accordionHeader = screen.getByText("Recommended (20)");
+
+  const accordionHeader = screen.getByText(/Recommended \(2\)/);
   fireEvent.click(accordionHeader);
 
-  // expect(screen.getAllByTestId("foodItems").length).toBe(5);
 
-  // expect(screen.getByText("Cart - (0 items)")).toBeInTheDocument();
+  expect(screen.getAllByTestId("foodItems").length).toBe(MOCK_LIST_ITEM.length)
+  const item = screen.getAllByRole("button", {name: /add/i})
+  fireEvent.click(item[0])
+  console.log(item[0])
 
-  // const addBtns = screen.getAllByRole("button", { name: "Add +" });
-  // fireEvent.click(addBtns[0]);
-
-  // expect(screen.getByText("Cart - (1 items)")).toBeInTheDocument();
-
-  // fireEvent.click(addBtns[1]);
-
-  // expect(screen.getByText("Cart - (2 items)")).toBeInTheDocument();
-
-  // expect(screen.getAllByTestId("foodItems").length).toBe(7);
-
-  // fireEvent.click(screen.getByRole("button", { name: "Clear Cart" }));
-
-  // expect(screen.getAllByTestId("foodItems").length).toBe(5);
-
-  // expect(
-  //   screen.getByText("Cart is empty. Add Items to the cart!")
-  // ).toBeInTheDocument();
 });

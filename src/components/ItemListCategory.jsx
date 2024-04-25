@@ -13,23 +13,24 @@ const ItemListCategory = ({ data }) => {
 
   return (
     <>
-      {data && data.map((item) => (
+      {data && data.map((item, index) => (
         <div
-          key={item.card.info.id}
+          data-testid="foodItems"
+          key={item?.card?.info?.id || index}
           className="mt-5 mb-3 py-3 flex justify-between px-2 border-b-2 content-center bg-gray-50"
         >
           <section className="mr-[2rem]">
             <p><AiOutlineShop className="text-green-500"/></p>
             <p className="text-md font-semibold text-gray-600">
-              {item.card.info.name}
+              {item?.card?.info?.name}
             </p>
             <p className="text-sm font-semibold tracking-wider">
-              {item.card.info.price
-                ? FormattedPriceCurrency(item.card.info.price / 100)
-                : FormattedPriceCurrency(item.card.info.defaultPrice / 100)}
+              {item?.card?.info?.price
+                ? FormattedPriceCurrency(item?.card?.info?.price / 100)
+                : FormattedPriceCurrency(item?.card?.info?.defaultPrice / 100)}
             </p>
             <p className="text-[.8rem] pt-[1rem] text-gray-500">
-              {item.card.info.description}
+              {item?.card?.info?.description}
             </p>
           </section>
 
@@ -37,7 +38,7 @@ const ItemListCategory = ({ data }) => {
             <div className="w-[170px] h-[100px] rounded-lg object-cover overflow-hidden shadow-xl border">
               <img
                 className="w-full object-cover"
-                src={imageLinkAddress + item.card.info.imageId}
+                src={imageLinkAddress + item?.card?.info?.imageId}
                 alt={item?.card?.info?.name}
               />
             </div>
