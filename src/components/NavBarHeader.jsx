@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import styles from "../../styles/Header.module.css";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
-import UserContext from "../../../namaste-react/src/utils/UserContext";
+import UserContext from "../hooks/userContext";
 import { useSelector } from "react-redux";
 
 function NavBarHeader() {
