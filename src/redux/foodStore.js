@@ -1,5 +1,5 @@
 import {configureStore} from "@reduxjs/toolkit"
-import cartSlice from "../../../food-js/src/redux/features/createSlice";
+import cartSlice from "./features/cartSlice";
 
 
 const foodStore = configureStore({
