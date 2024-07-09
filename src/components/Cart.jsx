@@ -3,7 +3,7 @@ import ItemListCategory from "./ItemListCategory";
 import { useSelector, useDispatch } from "react-redux";
 const Cart = () => {
   const cartItem = useSelector((store) => store.cart.item);
-  console.log(cartItem);
+  // console.log(cartItem);
 
   const dispatch = useDispatch()
 

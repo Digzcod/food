@@ -15,10 +15,10 @@ import FormattedPriceCurrency from "../utils/formattedPrice";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
-  const {resInfo,loading } = useRestaurantMenu(resId);
+  const { resInfo, loading } = useRestaurantMenu(resId);
   const [showIndex, setShowIndex] = useState(null);
 
-  const {loggedInUser} = useContext(UserContext)
+  const { loggedInUser } = useContext(UserContext);
 
   if (loading) return <Shimmer />;
   const restaurantInfo = resInfo?.cards[2]?.card?.card?.info;
@@ -30,22 +30,23 @@ const RestaurantMenu = () => {
     areaName,
     sla,
     avgRatingString,
-    totalRatingsString,                            
+    totalRatingsString,
     costForTwo,
     isOpen,
-  } = restaurantInfo
-  // console.log(restaurantInfo, "DEBUG API DUE undifined ")
-
+  } = restaurantInfo;
+  console.log(restaurantInfo, "DEBUG API DUE undifined ")
+  
   const discountInfoFiltered =
-    resInfo?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers;
-
+  resInfo?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers;
+  
   const itemsCategoryFiltered =
-    resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
-      (f) =>
-        f.card?.card?.["@type"] ===
-        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
-    );
-
+  resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
+    (f) =>
+      f.card?.card?.["@type"] ===
+    "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+  );
+  // console.log(resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[0]?.card?.card)
+  
   return (
     <section className="w-full grid justify-center px-2 items-baseline">
       <article className="w-[50vw]">
@@ -74,7 +75,6 @@ const RestaurantMenu = () => {
               {totalRatingsString}
             </p>
           </section>
-         
         </div>
 
         <section className="flex items-center gap-2 text-sm font-bold">
@@ -130,4 +130,3 @@ const RestaurantMenu = () => {
 };
 
 export default RestaurantMenu;
-

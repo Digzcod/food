@@ -19,7 +19,7 @@ it("Should load the header component login button", () => {
   expect(loginButton).toBeInTheDocument()
 });
 
-it("Should change the login btn to logout after the click ", () => {
+it("Should change the login btn to logout after click ", () => {
   render(
     <BrowserRouter>
       <Provider store={foodStore}>
