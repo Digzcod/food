@@ -10,7 +10,7 @@ import {
   BsCoin,
 } from "react-icons/bs";
 import RestaurantCategory from "./RestaurantCategory";
-import UserContext from "../../../namaste-react/src/utils/UserContext";
+import UserContext from "../hooks/userContext";
 import FormattedPriceCurrency from "../utils/formattedPrice";
 
 const RestaurantMenu = () => {

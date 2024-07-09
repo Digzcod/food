@@ -8,7 +8,7 @@ import Error from "./pages/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 // import Grocery from "./components/Grocery";
 import { lazy, Suspense, useEffect, useState } from "react";
-import UserContext from "../../namaste-react/src/utils/UserContext";
+import UserContext from "../../food-js/src/hooks/userContext";
 import { Provider } from "react-redux";
 import foodStore from "./redux/foodStore";
 import Cart from "./components/Cart";
