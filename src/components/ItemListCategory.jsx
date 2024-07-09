@@ -4,7 +4,7 @@ import FormattedPriceCurrency from "../utils/formattedPrice";
 import { BsCartPlus } from "react-icons/bs";
 import { AiOutlineShop } from "react-icons/ai";
 import { useDispatch } from "react-redux"
-import { addItem } from "../redux/features/createSlice";
+import { addItem } from "../redux/features/cartSlice";
 
 const ItemListCategory = ({ data }) => {
   console.log(data);
