@@ -1,4 +1,4 @@
-import { clearCart } from "../redux/features/createSlice";
+import { clearCart } from "../redux/features/cartSlice";
 import ItemListCategory from "./ItemListCategory";
 import { useSelector, useDispatch } from "react-redux";
 const Cart = () => {
