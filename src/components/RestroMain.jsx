@@ -46,7 +46,8 @@ const RestroMain = () => {
   return loading ? (
     <Shimmer />
   ) : (
-    <section className="w-full grid">
+ 
+    <section className="w-full grid mx-auto">
       <div className="flex justify-center m-[5rem]">
         <div>
           <input

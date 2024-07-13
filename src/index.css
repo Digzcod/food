@@ -1,4 +1,8 @@
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   margin: 0;
   padding: 0;
@@ -14,6 +18,22 @@ body {
   letter-spacing: 1px;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+html {
+  letter-spacing: 1px
+}
+
+
+.carousel-enter {
+  @apply opacity-0 transform translate-x-full;
+}
+.carousel-enter-active {
+  @apply opacity-100 transform translate-x-0 transition duration-1000;
+}
+.carousel-exit {
+  @apply opacity-100 transform translate-x-0;
+}
+.carousel-exit-active {
+  @apply opacity-0 transform -translate-x-full transition duration-1000;
+}
+
+

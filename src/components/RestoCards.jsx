@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "../../styles/RestroCards.module.css";
 import { imageLinkAddress } from "../data/constants";
+import { Button } from "@mui/material";
 
 // console.log(resData);
 const RestoCards = ({ item }) => {
@@ -22,6 +23,9 @@ const RestoCards = ({ item }) => {
           <p>{cuisines?.join(", ")}</p>
           <p style={{ color: "blue" }}>{areaName}</p>
         </div>
+        <Button size="small"  variant="text" color="inherit">
+          Test
+        </Button>
       </div>
     </div>
   );

@@ -12,6 +12,9 @@ import UserContext from "../src/hooks/userContext";
 import { Provider } from "react-redux";
 import foodStore from "./redux/foodStore";
 import Cart from "./components/Cart";
+import Header from "./components/_main/Header";
+import Home from "./pages/Home";
+import CityRestaurants from "./components/_city/CityRestaurants";
 
 const Contact = lazy(() => import("./components/Contact"));
 const About = lazy(() => import("./pages/About"));
@@ -30,12 +33,13 @@ function App() {
 
   return (
     <Provider store={foodStore}>
-      <UserContext.Provider value={{ loggedInUser: userName }}>
-        <section>
-          <NavBarHeader />
-          <Outlet />
-        </section>
-      </UserContext.Provider>
+        <UserContext.Provider value={{ loggedInUser: userName }}>
+          <section>
+            {/* <NavBarHeader /> */}
+            <Header/>
+            <Outlet />
+          </section>
+        </UserContext.Provider>
     </Provider>
   );
 }
@@ -47,7 +51,7 @@ export const appRouter = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <RestroCards />,
+        element:[ <Home />],
       },
       {
         path: "/food",
@@ -79,7 +83,11 @@ export const appRouter = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <Cart/>
+        element: <Cart />,
+      },
+      {
+        path: "/city/:cityName",
+        element: <CityRestaurants />,
       }
     ],
     errorElement: <Error />,
