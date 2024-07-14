@@ -17,7 +17,7 @@ const HorizontalRestoCards = ({ item }) => {
 
   return (
     <Container fixed>
-      <Card sx={{ display: "grid", mb: 2, width: 280 }}>
+      <Card sx={{ display: "grid", mb: 2, width: 260, height: "350px" }}>
         <Box
           sx={{
             objectFit: "cover",
@@ -34,7 +34,7 @@ const HorizontalRestoCards = ({ item }) => {
           />
         </Box>
         <CardContent sx={{ flex: "1 0 auto" }}>
-          <Typography component="div" variant="body2" sx={{fontSize:"1.2rem", fontWeight: "600" }}>
+          <Typography component="div" variant="body2" sx={{fontSize:"1.01rem", fontWeight: "600" }}>
             {name}
           </Typography>
           <Typography

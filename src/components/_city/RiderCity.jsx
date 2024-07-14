@@ -22,12 +22,10 @@ const RiderCity = () => {
         backgroundRepeat: 'no-repeat', // Do not repeat the image
         // borderBottomRightRadius:"30px",
         // borderBottomLeftRadius:"30px"
+
       }}
     >
-      <Box
-        className="w-[300px] h-[300px] object-cover object-center overflow-hidden rounded-lg mx-auto relative"
-      >
-      </Box>
+    
       <img src={riderPic} alt="Rider" className='w-[250px] absolute top-[15rem]' />
     </Grid>
   )

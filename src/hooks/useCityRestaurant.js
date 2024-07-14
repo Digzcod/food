@@ -20,11 +20,11 @@ const useCityRestaurant = () => {
         const data = await res.json();
         console.log(data);
         const newData =
-          data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-            ?.restaurants;
+        data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants;
+        // console.log;
         setCityRestaurants(newData);
         setPLace(data?.data?.cards[11]?.card?.card);
-        console.log(data?.data?.cards[11]);
         setLoad(false);
       } catch (error) {
         throw new Error("Failed to fetch data at City Restro");

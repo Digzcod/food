@@ -1,46 +1,47 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { Box, Grid } from "@mui/material";
+import React, { useState, useEffect, useRef } from "react";
+import { Box, Grid, IconButton } from "@mui/material";
 import { API_MAINRESTO, cors, imageLinkAddress } from "../../data/constants";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
 const MenuBanner = () => {
   const [data, setData] = useState([]);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const containerRef = useRef(null);
 
   async function getImageData() {
     const res = await fetch(cors + API_MAINRESTO);
     const db = await res.json();
     const newData = db?.data?.cards[0]?.card?.card?.imageGridCards?.info;
     setData(newData);
+    console.log(newData);
     localStorage.setItem("cacheImageData", JSON.stringify(newData));
   }
-  // console.log(data)
-
 
   useEffect(() => {
     const cachedData = localStorage.getItem("cacheImageData");
     if (cachedData) {
       setData(JSON.parse(cachedData));
-      console.log("cache data call");
     } else {
       getImageData();
-      console.log("calling image data");
     }
   }, []);
 
-  const updateImageIndex = useCallback(() => {
-    setCurrentImageIndex((prev) => (prev + 1) % data.length);
-  }, [data.length]);
+  const handlePrevClick = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollBy({
+        left: -600, // Adjust the value to control the scroll amount
+        behavior: 'smooth'
+      });
+    }
+  };
 
-  useEffect(() => {
-    const interval = setInterval(updateImageIndex, 8000);
-    console.log("check: render interval current");
-    return () => clearInterval(interval);
-  }, [data, updateImageIndex]);
-
-  const currentImage = useMemo(() => {
-    return data.length > 0 ? data[currentImageIndex] : null;
-  }, [data, currentImageIndex]);
+  const handleNextClick = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollBy({
+        left: 600, // Adjust the value to control the scroll amount
+        behavior: 'smooth'
+      });
+    }
+  };
 
   return (
     <Grid
@@ -49,32 +50,69 @@ const MenuBanner = () => {
       justifyContent="center"
       sx={{
         width: "100%",
-        bgcolor: "primary.main",
+        mt: "2rem",
         py: "3rem",
       }}
     >
       <Box
-        className="w-[300px] h-[300px] object-cover object-center overflow-hidden rounded-lg mx-auto relative"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "70%",
+          position: "relative",
+        }}
       >
-        <TransitionGroup>
-          {currentImage && (
-            <CSSTransition
-              key={currentImage.id}
-              classNames="carousel"
-              timeout={1000} // Transition duration
-            >
-              <Box
-                component="img"
-                src={imageLinkAddress + currentImage.imageId}
-                alt={`Image ${currentImageIndex}`}
-                className="absolute top-0 left-0 w-full h-full object-cover object-center transition-opacity duration-1000 transform"
-              />
-            </CSSTransition>
-          )}
-        </TransitionGroup>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            width: "100%",
+            position: "absolute",
+            top: -40,
+            right: 0,
+          }}
+        >
+          <IconButton onClick={handlePrevClick}>
+            <ArrowBackIos />
+          </IconButton>
+          <IconButton onClick={handleNextClick}>
+            <ArrowForwardIos />
+          </IconButton>
+        </Box>
+        <Box
+          ref={containerRef}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            overflowX: "scroll",
+            width: "100%",
+            scrollbarWidth: "none",
+            '&::-webkit-scrollbar': {
+              display: 'none',
+            },
+          }}
+        >
+          {data.map((image) => (
+            <Box
+              key={image.id}
+              component="img"
+              src={imageLinkAddress + image.imageId}
+              alt={`Image`}
+              sx={{
+                width: "150px",
+                height: "150px",
+                objectFit: "cover",
+                margin: "0 10px",
+                transition: "opacity 0.5s ease-in-out",
+              }}
+            />
+          ))}
+        </Box>
       </Box>
     </Grid>
   );
 };
 
 export default MenuBanner;
+ 
