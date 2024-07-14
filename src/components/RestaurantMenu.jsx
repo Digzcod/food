@@ -16,7 +16,7 @@ import FormattedPriceCurrency from "../utils/formattedPrice";
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const { resInfo, loading } = useRestaurantMenu(resId);
-  const [showIndex, setShowIndex] = useState(null);
+  const [showIndex, setShowIndex] = useState({});
 
   const { loggedInUser } = useContext(UserContext);
 
@@ -47,6 +47,13 @@ const RestaurantMenu = () => {
   );
   // console.log(resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[0]?.card?.card)
   
+  const handleToggle = (index) => {
+    setShowIndex(prevState => ({
+      ...prevState,
+      [index]: !prevState[index]
+    }));
+  };
+
   return (
     <section className="w-full grid justify-center px-2 items-baseline">
       <article className="w-[50vw]">
@@ -119,8 +126,8 @@ const RestaurantMenu = () => {
             <RestaurantCategory
               key={item?.card?.card?.title}
               item={item?.card?.card}
-              showItems={showIndex === index ? true : false}
-              setShowIndex={() => setShowIndex(index)}
+              showItems={showIndex[index]}
+              setShowIndex={() => handleToggle(index)}
             />
           ))}
         </section>
