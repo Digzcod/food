@@ -12,9 +12,11 @@ import useCityRestaurant from "../../hooks/useCityRestaurant";
 
 
 const BannerCity = () => {
-  const { place } = useCityRestaurant();
+  const { headerName } = useCityRestaurant();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  // console.log(headerName)
 
   return (
     <Box
@@ -51,7 +53,7 @@ const BannerCity = () => {
             width: "500px",
             textTransform: "capitalize",
             mb: isSmallScreen ? 2 : 0,
-          }}> {place?.citySlug} City</Box>
+          }}> {headerName?.citySlug} City</Box>
           </Typography>
    
         <Stack direction="row" spacing={2} alignItems="center">

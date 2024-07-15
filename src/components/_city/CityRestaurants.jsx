@@ -49,11 +49,11 @@ const CityRestaurants = () => {
         >
           <Typography
             color="inherit"
-            sx={{ display: "flex", alignItems: "center", my: "1rem" }}
+            sx={{ display: "flex", alignItems: "center", my: "1rem", fontFamily:"sans-serif" }}
             variant="h5"
             fontWeight={600}
           >
-          
+            {place?.title}
             {/* <Box
               sx={{ fontWeight: 600, ml: ".3rem", textTransform: "capitalize" }}
               component="h5"
