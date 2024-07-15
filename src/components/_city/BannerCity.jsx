@@ -10,6 +10,7 @@ import {
 import { banerImage } from "../../assets/_img/headerImg";
 import useCityRestaurant from "../../hooks/useCityRestaurant";
 
+
 const BannerCity = () => {
   const { place } = useCityRestaurant();
   const theme = useTheme();
@@ -19,9 +20,9 @@ const BannerCity = () => {
     <Box
       sx={{
         display: "flex",
-        height: "300px",
+        height: "350px",
         flexDirection: isSmallScreen ? "column" : "row",
-    
+
         alignItems: "center",
         justifyContent: "space-between",
         padding: theme.spacing(2),
@@ -33,10 +34,11 @@ const BannerCity = () => {
     >
       <Container sx={{ display: "flex",justifyContent:"space-between",  alignItems: "center", }}>
         <Typography
-          variant={isSmallScreen ? "h5" : "h4"}
+          variant={isSmallScreen ? "h4" : "h2"}
           sx={{
             // display: "flex",
-            fontWeight: "bold",
+            fontWeight: "bolder",
+            fontFamily: "serif",
             textAlign: "center",
             width: "auto",
             mb: isSmallScreen ? 2 : 0,

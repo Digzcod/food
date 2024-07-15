@@ -2,30 +2,24 @@ import React from "react";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import HorizontalRestoCards from "../_city/HorizontalRestoCards";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import BannerCity from "./BannerCity";
 import useCityRestaurant from "../../hooks/useCityRestaurant";
 import MenuBanner from "../_main/MenuBanner";
+import CityShimmer from "../../_loading/CityShimmer";
+import NoDeliverCity from "../../_loading/NoDeliverCity";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
+import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 
 const CityRestaurants = () => {
   const { load, cityRestaurants, place, scrollRef, handleScroll } =
     useCityRestaurant();
 
   if (load) {
-    return (
-      <h1 className="text-center font-bold text-5xl my-[10rem]">
-        Load City Restaurants....
-      </h1>
-    );
+    return <CityShimmer />;
   }
 
   if (!cityRestaurants && !cityRestaurants) {
-    return (
-      <h1 className="text-center font-semibold text-4xl my-[10rem]">
-        We don't have online delivery food on this city
-      </h1>
-    );
+    return <NoDeliverCity />;
   }
 
   return (
@@ -35,6 +29,7 @@ const CityRestaurants = () => {
       <Box
         sx={{
           display: "grid",
+          width:"70vw",
           alignItems: "center",
           justifyContent: "center",
           justifyItems: "center",
@@ -48,7 +43,7 @@ const CityRestaurants = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            width: "70%",
+            width: "100%",
             // mt: "2rem",
           }}
         >
@@ -58,53 +53,52 @@ const CityRestaurants = () => {
             variant="h5"
             fontWeight={600}
           >
-            Top restaurant chains in
-            {place?.citySlug}
+          
             {/* <Box
               sx={{ fontWeight: 600, ml: ".3rem", textTransform: "capitalize" }}
               component="h5"
             >
             </Box> */}
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <IconButton>
-              <ArrowBackIosIcon
+          <Box sx={{ display: "flex", alignItems: "center",}}>
+            <IconButton color="inherit">
+              <ArrowBackRoundedIcon
                 onClick={() => handleScroll("left")}
-                sx={{ fontSize: "1.5rem" }}
-                color="primary"
+                sx={{ fontSize: "2rem" }}
+                // color="primary"
               />
             </IconButton>
-            <IconButton>
-              <ArrowForwardIosIcon
+            <IconButton  color="inherit">
+              <ArrowForwardRoundedIcon
                 onClick={() => handleScroll("right")}
-                sx={{ fontSize: "1.5rem" }}
-                color="primary"
+                sx={{ fontSize: "2rem" }}
+                // color="primary"
               />
             </IconButton>
           </Box>
         </Box>
-        <Box
-          sx={{
-            overflowX: "auto",
-            display: "flex",
-            width: "70%",
-            scrollBehavior: "smooth",
-            "&::-webkit-scrollbar": { display: "none" },
-            "-ms-overflow-style": "none", // IE and Edge
-            "scrollbar-width": "none", // Firefox
-          }}
-          ref={scrollRef}
-        >
-          {cityRestaurants &&
-            cityRestaurants.map((city) => (
-              <Box key={city?.info?.id}>
-                <Link to={"/restaurants/" + city?.info?.id}>
-                  <HorizontalRestoCards item={city?.info} />
-                </Link>
-              </Box>
-            ))}
+          <Box
+            sx={{
+              overflowX: "auto",
+              display: "flex",
+              width: "70vw",
+              scrollBehavior: "smooth",
+              "&::-webkit-scrollbar": { display: "none" },
+              "-ms-overflow-style": "none", // IE and Edge
+              "scrollbar-width": "none", // Firefox
+            }}
+            ref={scrollRef}
+          >
+            {cityRestaurants &&
+              cityRestaurants.map((city) => (
+                <Box key={city?.info?.id}>
+                  <Link to={"/restaurants/" + city?.info?.id}>
+                    <HorizontalRestoCards item={city?.info} />
+                  </Link>
+                </Box>
+              ))}
+          </Box>
         </Box>
-      </Box>
     </>
   );
 };

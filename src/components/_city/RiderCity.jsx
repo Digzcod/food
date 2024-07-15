@@ -15,18 +15,16 @@ const RiderCity = () => {
       sx={{
         width: "100%",
         height: "400px",
-        // py: "3rem",
         backgroundImage: `url(${placePic})`, // Set the background image
         backgroundSize: 'cover', // Cover the entire grid area
         backgroundPosition: 'center', // Center the image
         backgroundRepeat: 'no-repeat', // Do not repeat the image
-        // borderBottomRightRadius:"30px",
-        // borderBottomLeftRadius:"30px"
+      
 
       }}
     >
-    
       <img src={riderPic} alt="Rider" className='w-[250px] absolute top-[15rem]' />
+    
     </Grid>
   )
 }

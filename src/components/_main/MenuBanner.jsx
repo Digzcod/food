@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Box, Grid, IconButton } from "@mui/material";
 import { API_MAINRESTO, cors, imageLinkAddress } from "../../data/constants";
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
+import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 
 const MenuBanner = () => {
   const [data, setData] = useState([]);
@@ -73,11 +75,13 @@ const MenuBanner = () => {
             right: 0,
           }}
         >
-          <IconButton onClick={handlePrevClick}>
-            <ArrowBackIos />
+          <IconButton  onClick={handlePrevClick}>
+            {/* <ArrowBackIos /> */}
+            <ArrowBackRoundedIcon sx={{fontSize: "2rem"}}/>
           </IconButton>
           <IconButton onClick={handleNextClick}>
-            <ArrowForwardIos />
+            {/* <ArrowForwardIos /> */}
+            <ArrowForwardRoundedIcon sx={{fontSize: "2rem"}}/>
           </IconButton>
         </Box>
         <Box

@@ -30,8 +30,6 @@ const useCityRestaurant = () => {
         throw new Error("Failed to fetch data at City Restro");
       }
     };
-
-    
   
     useEffect(() => {
       const coordinates = cityCoordinates[cityName];
