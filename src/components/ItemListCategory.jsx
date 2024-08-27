@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux"
 import { addItem } from "../redux/features/cartSlice";
 
 const ItemListCategory = ({ data }) => {
-  console.log(data);
+  // console.log(data);
 
   const dispatch = useDispatch()
 

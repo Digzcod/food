@@ -5,8 +5,6 @@ import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import NetLost from "./NetLost";
-import { API_MAINRESTO, API_MAINRESTO_PLUS_CORS } from "../data/constants";
-import styles from "../../styles/RestroCards.module.css";
 
 // console.table(swiggy_api)
 

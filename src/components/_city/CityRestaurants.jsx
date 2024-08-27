@@ -1,5 +1,11 @@
 import React from "react";
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import HorizontalRestoCards from "../_city/HorizontalRestoCards";
 import BannerCity from "./BannerCity";
@@ -9,8 +15,10 @@ import CityShimmer from "../../_loading/CityShimmer";
 import NoDeliverCity from "../../_loading/NoDeliverCity";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
+import VerticalRestoCards from "./VerticalRestoCards";
 
 const CityRestaurants = () => {
+  const restCardStyle = useMediaQuery("(max-width:960px)");
   const { load, cityRestaurants, place, scrollRef, handleScroll } =
     useCityRestaurant();
 
@@ -29,7 +37,7 @@ const CityRestaurants = () => {
       <Box
         sx={{
           display: "grid",
-          width:"70vw",
+          width: "70vw",
           alignItems: "center",
           justifyContent: "center",
           justifyItems: "center",
@@ -49,34 +57,36 @@ const CityRestaurants = () => {
         >
           <Typography
             color="inherit"
-            sx={{ display: "flex", alignItems: "center", my: "1rem", fontFamily:"sans-serif" }}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              my: "1rem",
+              fontFamily: "sans-serif",
+            }}
             variant="h5"
             fontWeight={600}
           >
             {place?.title}
-            {/* <Box
-              sx={{ fontWeight: 600, ml: ".3rem", textTransform: "capitalize" }}
-              component="h5"
-            >
-            </Box> */}
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center",}}>
-            <IconButton color="inherit">
-              <ArrowBackRoundedIcon
-                onClick={() => handleScroll("left")}
-                sx={{ fontSize: "2rem" }}
-                // color="primary"
-              />
-            </IconButton>
-            <IconButton  color="inherit">
-              <ArrowForwardRoundedIcon
-                onClick={() => handleScroll("right")}
-                sx={{ fontSize: "2rem" }}
-                // color="primary"
-              />
-            </IconButton>
-          </Box>
+          {!restCardStyle ? (
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <IconButton color="inherit">
+                <ArrowBackRoundedIcon
+                  onClick={() => handleScroll("left")}
+                  sx={{ fontSize: "1.8rem" }}
+                  // color="primary"
+                />
+              </IconButton>
+              <IconButton color="inherit">
+                <ArrowForwardRoundedIcon
+                  onClick={() => handleScroll("right")}
+                  sx={{ fontSize: "1.8rem" }}
+                />
+              </IconButton>
+            </Box>
+          ) : null}
         </Box>
+        {!restCardStyle ? (
           <Box
             sx={{
               overflowX: "auto",
@@ -98,7 +108,24 @@ const CityRestaurants = () => {
                 </Box>
               ))}
           </Box>
-        </Box>
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              gap: "1.5rem",
+            }}
+          >
+            {cityRestaurants &&
+              cityRestaurants.map((city) => (
+                <Link to={"/restaurants/" + city?.info?.id}>
+                  <VerticalRestoCards item={city?.info} />
+                </Link>
+              ))}
+          </Box>
+        )}
+      </Box>
     </>
   );
 };

@@ -3,9 +3,9 @@ import {
   Card,
   CardContent,
   CardMedia,
-  Grid,
+  // Grid,
   Typography,
-  Button,
+  // Button,
   Box,
   Container,
 } from "@mui/material";
@@ -17,7 +17,7 @@ const HorizontalRestoCards = ({ item }) => {
 
   return (
     <Container fixed>
-      <Card sx={{ display: "grid", mb: 2, width: 260, height: "350px" }}>
+      <Card sx={{ display: "grid", mb: 2, width: 290, height: "300px" }}>
         <Box
           sx={{
             objectFit: "cover",
@@ -34,21 +34,29 @@ const HorizontalRestoCards = ({ item }) => {
           />
         </Box>
         <CardContent sx={{ flex: "1 0 auto" }}>
-          <Typography component="div" variant="body2" sx={{fontSize:"1.01rem", fontWeight: "600" }}>
+          <Typography
+            sx={{ fontWeight: "bold", fontSize: "1rem" }}
+            variant="body2"
+            color="primary"
+            component="div"
+          >
+            {areaName}
+          </Typography>
+          <Typography
+            component="div"
+            variant="body2"
+            sx={{ fontSize: "1.01rem", fontWeight: "600" }}
+          >
             {name}
           </Typography>
           <Typography
             variant="subtitle1"
-            color="success.secondary"
+            color="text"
             component="div"
-            sx={{fontWeight: "bolder"}}
+            sx={{ fontWeight: "medium" }}
           >
             {avgRating} ⨀ {sla?.slaString}
           </Typography>
-          <Typography sx={{fontWeight:"bold", fontSize: '1rem'}} variant="body2" color="primary" component="div">
-            {areaName}
-          </Typography>
- 
         </CardContent>
       </Card>
     </Container>

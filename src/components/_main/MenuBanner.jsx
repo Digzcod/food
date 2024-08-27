@@ -1,49 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { Box, Grid, IconButton } from "@mui/material";
-import { API_MAINRESTO, cors, imageLinkAddress } from "../../data/constants";
-import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+import { imageLinkAddress } from "../../data/constants";
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
+import useSmallMenu from "../../hooks/useSmallMenu";
 
 const MenuBanner = () => {
-  const [data, setData] = useState([]);
-  const containerRef = useRef(null);
-
-  async function getImageData() {
-    const res = await fetch(cors + API_MAINRESTO);
-    const db = await res.json();
-    const newData = db?.data?.cards[0]?.card?.card?.imageGridCards?.info;
-    setData(newData);
-    console.log(newData);
-    localStorage.setItem("cacheImageData", JSON.stringify(newData));
-  }
-
-  useEffect(() => {
-    const cachedData = localStorage.getItem("cacheImageData");
-    if (cachedData) {
-      setData(JSON.parse(cachedData));
-    } else {
-      getImageData();
-    }
-  }, []);
-
-  const handlePrevClick = () => {
-    if (containerRef.current) {
-      containerRef.current.scrollBy({
-        left: -600, // Adjust the value to control the scroll amount
-        behavior: 'smooth'
-      });
-    }
-  };
-
-  const handleNextClick = () => {
-    if (containerRef.current) {
-      containerRef.current.scrollBy({
-        left: 600, // Adjust the value to control the scroll amount
-        behavior: 'smooth'
-      });
-    }
-  };
+  const {containerRef, data, handlePrevClick, handleNextClick} = useSmallMenu()
 
   return (
     <Grid

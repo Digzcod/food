@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import { RESTOMENU_API } from "../data/constants";
-import useRestaurantMenu from "../utils/useRestaurantMenu";
+import useRestaurantMenu from "../hooks/useRestaurantMenu";
 import {
   BsFillStarFill,
   BsFillRecordCircleFill,
@@ -34,7 +34,7 @@ const RestaurantMenu = () => {
     costForTwo,
     isOpen,
   } = restaurantInfo;
-  console.log(restaurantInfo, "DEBUG API DUE undifined ")
+  // console.log(restaurantInfo, "DEBUG API DUE undifined ")
   
   const discountInfoFiltered =
   resInfo?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers;

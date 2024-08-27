@@ -34,7 +34,7 @@ function App() {
   return (
     <Provider store={foodStore}>
         <UserContext.Provider value={{ loggedInUser: userName }}>
-          <section>
+          <section className="w-full">
             {/* <NavBarHeader /> */}
             <Header/>
             <Outlet />
