@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { API_MAINRESTO, cors } from "../../data/constants";
 import { useNavigate } from "react-router-dom";
 import Shimmer from "../Shimmer";
+import BtnShimmerCities from "../../_loading/BtnShimmerCities";
 
 const BtnContainer = () => {
   const [data, setData] = useState([]);
@@ -17,7 +18,7 @@ const BtnContainer = () => {
       const res = await fetch(cors + API_MAINRESTO);
       const data = await res.json();
       const newData = data?.data?.cards[10]?.card?.card?.cities || [];
-      console.log(newData);
+      // console.log(newData);
       setData(newData);
       setDisplayData(newData.slice(0, 19));
       setLoad(false);
@@ -33,16 +34,15 @@ const BtnContainer = () => {
   };
 
   useEffect(() => {
-    console.log("API CAll");
+    // console.log("API CAll");
     getCity();
   }, []);
 
   const handleNavigateCity = (cityName) => {
     navigate(`/city/${cityName.trim().replace(/\s+/g, "-")}`)
   }
-
   return load ? (
-    <Shimmer />
+    <BtnShimmerCities />
   ) : (
     <Grid
       container

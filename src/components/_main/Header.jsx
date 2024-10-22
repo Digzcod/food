@@ -17,7 +17,7 @@ function Header() {
   const [elevate, setElevate] = useState(1);
   const [color, setColor] = useState("inherit");
   const [logoColor, setLogoColor] = useState("primary");
-  const cartItem = useSelector((store) => store.cart.item);
+  const cartItem = useSelector((store) => store.cart.items);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const mobileView = useMediaQuery("(max-width:767px)");
@@ -33,7 +33,6 @@ function Header() {
       setAppBarPosition("static");
       setElevate(1);
       setColor("inherit");
-      setLogoColor("primary");
     }
   };
 
@@ -55,9 +54,11 @@ function Header() {
       )}
       <AppBar
         position={appBarPosition}
-        color={color}
         elevation={elevate}
-        sx={{ py: "3px" }}
+        sx={{
+          // backgroundColor: "transparent", // Set background to transparent
+          py: "3px",
+        }}
       >
         <Toolbar sx={{ display: "flex", justifyItems: "center" }}>
           {mobileView ? (
@@ -79,7 +80,7 @@ function Header() {
                 <Typography
                   variant="h6"
                   component="div"
-                  color={logoColor}
+                  color={"inherit"}
                   sx={{ fontWeight: "bolder" }}
                 >
                   LOGO
@@ -118,4 +119,5 @@ function Header() {
     </>
   );
 }
+
 export default Header;

@@ -3,11 +3,11 @@ import useCityRestaurant from "../../hooks/useCityRestaurant";
 import { Box, Card, CardMedia, CardContent, Typography } from "@mui/material";
 import { imageLinkAddress } from "../../data/constants";
 
-const VerticalRestoCards = ({ item }) => {
+const VerticalRestoCards = ({ item, mobile }) => {
   const { cloudinaryImageId, name, avgRating, sla, cuisines, areaName } =
     item || {};
   return (
-    <Card key={item?.id} sx={{ mb: 2, width: "280px", height: "325px" }}>
+    <Card key={item?.id} sx={{ mb: 2, width: mobile? "290px" :"300px", height: mobile? "auto" : "325px" }}>
       <Box
         sx={{
           objectFit: "cover",

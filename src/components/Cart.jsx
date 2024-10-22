@@ -1,9 +1,13 @@
 import { clearCart } from "../redux/features/cartSlice";
+import CartItemList from "./CartItemList";
 import ItemListCategory from "./ItemListCategory";
 import { useSelector, useDispatch } from "react-redux";
 const Cart = () => {
-  const cartItem = useSelector((store) => store.cart.item);
-  // console.log(cartItem);
+  const cartItem = useSelector((store) => store.cart.items);
+
+  console.log(cartItem)
+
+  
 
   const dispatch = useDispatch()
 
@@ -24,7 +28,8 @@ const Cart = () => {
       </div>
         <div>
           {cartItem.length === 0 && <h2>Cart is empty. Please add some item!</h2>}
-          <ItemListCategory data={cartItem}/>
+          {/* <ItemListCategory data={cartItem}/> */}
+          <CartItemList data={cartItem}/>
         </div>
     </section>
   );

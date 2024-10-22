@@ -19,6 +19,7 @@ import VerticalRestoCards from "./VerticalRestoCards";
 
 const CityRestaurants = () => {
   const restCardStyle = useMediaQuery("(max-width:960px)");
+  const mobileWidth = useMediaQuery("(max-width:835px)");
   const { load, cityRestaurants, place, scrollRef, handleScroll } =
     useCityRestaurant();
 
@@ -37,11 +38,11 @@ const CityRestaurants = () => {
       <Box
         sx={{
           display: "grid",
-          width: "70vw",
+          width:"70vw",
           alignItems: "center",
           justifyContent: "center",
           justifyItems: "center",
-          mx: "auto",
+          mx:"auto",
           mt: ".2rem",
           mb: "5rem",
         }}
@@ -112,7 +113,8 @@ const CityRestaurants = () => {
           <Box
             sx={{
               display: "flex",
-              justifyContent: "center",
+              width: mobileWidth? "100%": "auto",
+              justifyContent:"space-evenly" ,
               flexWrap: "wrap",
               gap: "1.5rem",
             }}
@@ -120,7 +122,7 @@ const CityRestaurants = () => {
             {cityRestaurants &&
               cityRestaurants.map((city) => (
                 <Link to={"/restaurants/" + city?.info?.id}>
-                  <VerticalRestoCards item={city?.info} />
+                  <VerticalRestoCards mobile={mobileWidth} item={city?.info} />
                 </Link>
               ))}
           </Box>

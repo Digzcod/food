@@ -31,9 +31,11 @@ export default function DrawerMenu({ open, setOpen, items }) {
             orientation="vertical"
             fullWidth
           >
+            <Link to="/">
             <Button sx={{ py: ".6rem" }} variant="text">
               Home
             </Button>
+            </Link>
             <Divider />
             <Button sx={{ py: ".6rem" }} variant="text">
               Corporate

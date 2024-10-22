@@ -17,7 +17,7 @@ const HorizontalRestoCards = ({ item }) => {
 
   return (
     <Container fixed>
-      <Card sx={{ display: "grid", mb: 2, width: 290, height: "300px" }}>
+      <Card sx={{ display: "grid", mb: 2, width: 290, height: "320px" }}>
         <Box
           sx={{
             objectFit: "cover",

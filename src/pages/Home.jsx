@@ -11,7 +11,7 @@ const Home = () => {
       direction="column"
       alignItems="center"
       // justifyContent="center"
-      sx={{ width: "100%", minHeight: "100vh", mt: "1rem" }} // Ensures the container takes full viewport width and height
+      sx={{ width: "100%", minHeight: "100vh", mt: "1rem", mt: "-6rem" }} // Ensures the container takes full viewport width and height
     >
       <RiderCity/>
       <Container>
