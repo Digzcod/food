@@ -145,16 +145,15 @@ const RiderCity = () => {
             sx={{
               position: "absolute",
               backgroundColor: "white",
-              width:{ xs: "20%", sm:"30%", md:"33%"},
+              width: { xs: "80%", sm: "60%", md: "40%", lg: "33%" }, // Adjust width for different screen sizes
               boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
               borderRadius: "8px",
               zIndex: 10,
               maxHeight: "450px",
               overflowY: "auto",
-              marginTop: "10px",
-              marginTop: "2.5rem",
-              left: "44.5rem",
-              // right: 50
+              marginTop: "2rem",
+              left: { xs: "10%", sm: "20%", md: "30%", lg: "33.4%" }, // Adjust left position for centering the list
+              right: "auto", // Ensure it's aligned properly
             }}
           >
             {filteredCities.map((city, index) => (
