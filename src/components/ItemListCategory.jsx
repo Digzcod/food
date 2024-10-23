@@ -8,9 +8,8 @@ import { addItem } from "../redux/features/cartSlice";
 import { useMediaQuery } from "@mui/material";
 
 const ItemListCategory = ({ data }) => {
-  console.log(data);
+  
   const mobileItemList = useMediaQuery("(max-width: 560px)");
-
   const dispatch = useDispatch();
 
   return (
