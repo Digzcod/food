@@ -13,6 +13,7 @@ import RestaurantCategory from "./RestaurantCategory";
 import UserContext from "../hooks/userContext";
 import FormattedPriceCurrency from "../utils/formattedPrice";
 import { Box, useMediaQuery } from "@mui/material";
+import SpaShimmer from "../_loading/SpaShimmer";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
@@ -25,7 +26,7 @@ const RestaurantMenu = () => {
   const nameRating = useMediaQuery("(max-width:610px)");
   const mobileTagMenu = useMediaQuery("(max-width:609px)");
 
-  if (loading) return <Shimmer />;
+  if (loading) return <SpaShimmer/>
   const restaurantInfo = resInfo?.cards[2]?.card?.card?.info;
   if (!restaurantInfo) return <h1>No Data Available</h1>;
 
