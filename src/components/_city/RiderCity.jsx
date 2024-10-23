@@ -169,7 +169,7 @@ const RiderCity = () => {
                 }}
                 onClick={() => handleCitySelection(city)}
               >
-                <FaMapMarker className="ml-[.5rem] mr-1 text-gray-400"/> {city.charAt(0).toUpperCase() + city.slice(1)}
+                <FaMapMarker className="ml-[.5rem] mr-1 text-gray-400"/> {city.charAt(0).toUpperCase() + city.slice(1)} City
               </ListItem>
             ))}
           </List>

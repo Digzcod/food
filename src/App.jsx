@@ -1,12 +1,11 @@
 import NavBarHeader from "./components/NavBarHeader";
 import RestroCards from "./components/RestroMain";
 import { createBrowserRouter, Outlet } from "react-router-dom";
-// import About from "./pages/About";
+
 import Login from "./pages/Login";
 import Food from "./pages/Food";
 import Error from "./pages/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
-// import Grocery from "./components/Grocery";
 import { lazy, Suspense, useEffect, useState } from "react";
 import UserContext from "../src/hooks/userContext";
 import { Provider } from "react-redux";

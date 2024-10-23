@@ -87,17 +87,16 @@ function Header() {
                 </Typography>
               </Link>
               <Box sx={{ display: "flex", mx: "auto", cursor: "default" }}>
-                <Typography variant="body1" color="inherit" sx={{ mx: "2rem" }}>
-                  Corporate
-                </Typography>
-                <Typography variant="body1" color="inherit" sx={{ mx: "2rem" }}>
+            <Link to={"/"}>
+                <Typography variant="body1" sx={{ mx: "2rem" }}>
                   Search
                 </Typography>
+            </Link>
                 <Typography variant="body1" color="inherit" sx={{ mx: "2rem" }}>
                   <Link to="cart">
                     Cart
                     <AddShoppingCartOutlinedIcon
-                      sx={{ height: "1.4rem", ml: ".2rem" }}
+                      sx={{ height: "1.4rem", ml: ".2rem", color: "white", fontWeight: 600 }}
                     />
                     {cartItem.length > 0 && (
                       <Badge
